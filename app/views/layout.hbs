@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{title}}</title>
+
+    <!-- Assets are in /public -->
+    <link rel='stylesheet' href='/css/style.css'>
+
+    {{{block "stylesheets"}}}
+  </head>
+
+  <body>
+    <h1>Duplex Application</h1>
+    <br><br><br>
+    {{{body}}}
+
+    <!-- Assets are in /public -->
+    {{{block "scripts"}}}
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<!-- Example inject new stylesheets -->
+{{#extend "stylesheets"}}
+<!-- <link rel="stylesheet" href="/css/index.css"/> -->
+{{/extend}}
+
+{{message}}
+<br><br>
+<i>Rendered from /app/views/pages/index.hbs</i>
+
+<br><br>
+<a href="/signup">Sign Up</a> Or <a href="/login">Login</a>
+
+<!-- Example inject new scripts -->
+{{#extend "scripts"}}
+<script>
+  console.log("Hey i'm a script");
+</script>
+{{/extend}}

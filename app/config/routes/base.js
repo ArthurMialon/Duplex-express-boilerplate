@@ -10,6 +10,9 @@ export default () => {
   /* Homepage */
   router.get('/', Duplex.controller('base')('index'));
 
+  /* Socket Connections */
+  router.get('/', Duplex.controller('base')('connections'));
+
   /* Authentication pages */
   router.get('/signup', Duplex.controller('auth')('signup'));
   router.get('/login',  Duplex.controller('auth')('login'));
@@ -21,7 +24,7 @@ export default () => {
     failureRedirect : '/login'
   }));
 
- router.post('/signup', Duplex.passport.authenticate('local-signup', {
+  router.post('/signup', Duplex.passport.authenticate('local-signup', {
     successRedirect : '/',
     failureRedirect : '/signup'
   }));

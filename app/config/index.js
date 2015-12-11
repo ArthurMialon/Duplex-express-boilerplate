@@ -13,6 +13,11 @@ export default {
     saveUninitialized: false
   },
 
+  /* JsonWebToken configuration */
+  jwt: {
+    secret: "secretkeyforjwt"
+  },
+
   /*---------------------------------------------/
   | Databases configuration
   | The framework uses the Waterline ORM
@@ -25,7 +30,8 @@ export default {
    *  @type {object}
    */
   adapters: {
-    mongo: require('sails-mongo')
+    mongo: require('sails-mongo'),
+    mysql: require('sails-mysql')
   },
 
 

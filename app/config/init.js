@@ -30,7 +30,7 @@ export default (app) => {
   /* Set views directory */
   app.set('views', './app/views');
 
-  /* Set /public directory public/img ==> /img in template */
+  /* Set /public directory public/img ==> /img in templates */
   app.use(express.static(__dirname + '/../../public'));
 
   /**

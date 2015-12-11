@@ -6,7 +6,7 @@ export default class Base {
   constructor() {
     this.message      = "Welcome on Duplex homepage :)";
     this.errorMessage = "Page not Found";
-    this.user         = Duplex.model('user');
+    this.User         = Duplex.model('user');
   }
 
   /**
@@ -16,6 +16,15 @@ export default class Base {
    */
   index(req, res) {
     res.render('pages/index.hbs', { message: this.message});
+  }
+
+  /**
+   * Action connections
+   * @param {Object} request
+   * @param {Object} response
+   */
+  connections(req, res) {
+    Duplex.response(res, 200, Duplex.socketIds);
   }
 
   /**

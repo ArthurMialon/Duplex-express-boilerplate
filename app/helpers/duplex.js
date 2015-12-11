@@ -30,6 +30,26 @@ export default class Duplex {
   }
 
   /**
+   * Get all socket connections
+   * @return {object} connetions
+   */
+  get connections() {
+    return this.io.sockets.connected;
+  }
+
+  /**
+   * Get all socketsId
+   * @return {array} connections ids
+   */
+  get socketIds() {
+    let result = [];
+    Object.keys(this.connections).forEach( id => {
+      result.push(this.connections[id].id);
+    });
+    return result;
+  }
+
+  /**
    * Get middleware
    * @param {string} all names sorted
    * @return {array} array of middleware
@@ -43,9 +63,8 @@ export default class Duplex {
     /* Add middleware from parameters */
     return names
     .map( name => middleware[name])
-    .reduce((final, middle) => {
-      final = [].concat(final, middle);
-      return final;
+    .reduce( (final, middle) => {
+      return [].concat(final, middle);
     }, []);
   }
 
@@ -65,9 +84,7 @@ export default class Duplex {
   controller(name, param) {
     let c = require(`../controllers/${name}`).default;
     c = new c(param);
-    return (action) => {
-      return c[action].bind(c);
-    };
+    return (action) => c[action].bind(c);
   }
 
   /**
@@ -85,7 +102,32 @@ export default class Duplex {
       /* Set all models in Duplex global */
       this.models = models;
 
+      console.log("Connected to database : OK !");
       return cb();
+    });
+  }
+
+  /**
+   * Response API Data
+   * @param {object} Response object
+   * @param {string|int} type (success / http error status)
+   * @param {mixed} data
+   */
+  response(res, type, data) {
+
+    /* Error case */
+    if (type != "success" || type >= 300) {
+      return res.status(parseInt(type)).send({
+        status : parseInt(type),
+        message: require('../config/errors').default[parseInt(type)] || data || "Something went wrong..."
+      });
+    }
+
+    /* Success case */
+    return res.status(200).send({
+      status : 200,
+      message: 'ok',
+      data   : data
     });
   }
 
